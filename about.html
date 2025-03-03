@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Me</title>
+  <title>About Me - Digital Artist</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <nav>
+  <button class="menu-toggle" id="menuToggle">
+    <i class="fas fa-bars"></i>
+  </button>
+  <nav id="mainNav">
     <a href="index.html">Home</a>
-    <a href="about.html">About</a>
+    <a href="about.html" class="active">About</a>
     <a href="best-pieces.html">Best Pieces</a>
     <a href="artworks.html">Artworks</a>
     <a href="art-prints.html">Art Prints</a>
@@ -18,12 +22,227 @@
   </nav>
 
   <div class="about-container">
-    <h1>About Me</h1>
-    <p>I'm just a small upstart digital artist.</p>
-    <a href="best-pieces.html" class="hover-button">
-        <span>Click here to view my best pieces</span>
-        <div class="button-bg"></div> <!-- Background image container -->
-      </a>
+    <!-- Hero Section -->
+    <section class="about-hero">
+      <div class="hero-content">
+        <h1 class="glitch-text" data-text="About Me">About Me</h1>
+        <p class="typing-text">Digital Artist | Illustrator | Creator</p>
+      </div>
+    </section>
+
+    <!-- Bio Section -->
+    <section class="bio-section">
+      <div class="bio-content">
+        <h2>Who Am I?</h2>
+        <p>I'm Stephen, also known as sfkandartz, a passionate digital artist on a journey to create unique and captivating artwork. My style blends modern digital techniques with traditional artistic principles.</p>
+        
+        <div class="stats-grid">
+          <div class="stat-item" data-value="50">
+            <span class="stat-number">0</span>
+            <span class="stat-label">Artworks Created</span>
+          </div>
+          <div class="stat-item" data-value="2">
+            <span class="stat-number">0</span>
+            <span class="stat-label">Years Experience</span>
+          </div>
+          <div class="stat-item" data-value="20">
+            <span class="stat-number">0</span>
+            <span class="stat-label">Happy Clients</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section">
+      <h2>My Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <i class="fas fa-paint-brush"></i>
+          <h3>Digital Painting</h3>
+          <div class="skill-bar" data-level="90">
+            <div class="skill-progress"></div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <i class="fas fa-pencil-alt"></i>
+          <h3>Illustration</h3>
+          <div class="skill-bar" data-level="85">
+            <div class="skill-progress"></div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <i class="fas fa-lightbulb"></i>
+          <h3>Concept Art</h3>
+          <div class="skill-bar" data-level="75">
+            <div class="skill-progress"></div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <i class="fas fa-palette"></i>
+          <h3>Color Theory</h3>
+          <div class="skill-bar" data-level="95">
+            <div class="skill-progress"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="tools-section">
+      <h2>Tools I Use</h2>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <i class="fab fa-adobe"></i>
+          <span>Adobe Photoshop</span>
+        </div>
+        <div class="tool-card">
+          <i class="fab fa-adobe"></i>
+          <span>Adobe Illustrator</span>
+        </div>
+        <div class="tool-card">
+          <i class="fas fa-mobile-alt"></i>
+          <span>Ibis Paint X</span>
+        </div>
+        <div class="tool-card">
+          <i class="fas fa-paint-brush"></i>
+          <span>Clip Studio Paint</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+      <h2>My Journey</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>2014</h3>
+            <p>Started Traditional Art</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>2023</h3>
+            <p>Started Digital Art Journey</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>2024</h3>
+            <p>First Commission Work</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>2025</h3>
+            <p>Launching Online Portfolio</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <h2>Let's Create Something Amazing</h2>
+      <div class="cta-buttons">
+        <a href="contact.html" class="cta-button primary">Contact Me</a>
+        <a href="best-pieces.html" class="cta-button secondary">View My Best Pieces</a>
+        <a href="artworks.html" class="cta-button secondary">View My Work</a>
+      </div>
+    </section>
   </div>
+
+  <script>
+    // Mobile Navigation Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+    const menuIcon = menuToggle.querySelector('i');
+
+    menuToggle.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+      menuIcon.classList.toggle('fa-bars');
+      menuIcon.classList.toggle('fa-times');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
+        mainNav.classList.remove('active');
+        menuIcon.classList.add('fa-bars');
+        menuIcon.classList.remove('fa-times');
+      }
+    });
+
+    // Close menu when clicking a link
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('active');
+        menuIcon.classList.add('fa-bars');
+        menuIcon.classList.remove('fa-times');
+      });
+    });
+
+    // Intersection Observer for animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    // Observe all sections
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+
+    // Animate statistics
+    function animateStats() {
+      document.querySelectorAll('.stat-item').forEach(stat => {
+        const targetValue = parseInt(stat.dataset.value);
+        const numberElement = stat.querySelector('.stat-number');
+        let currentValue = 0;
+        
+        const increment = targetValue / 50; // Adjust for animation speed
+        const interval = setInterval(() => {
+          currentValue += increment;
+          if (currentValue >= targetValue) {
+            currentValue = targetValue;
+            clearInterval(interval);
+          }
+          numberElement.textContent = Math.round(currentValue);
+        }, 40);
+      });
+    }
+
+    // Animate skill bars
+    function animateSkillBars() {
+      document.querySelectorAll('.skill-bar').forEach(bar => {
+        const level = bar.dataset.level;
+        const progress = bar.querySelector('.skill-progress');
+        progress.style.width = level + '%';
+      });
+    }
+
+    // Initialize animations when sections become visible
+    const bioSection = document.querySelector('.bio-section');
+    const skillsSection = document.querySelector('.skills-section');
+
+    const bioObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        animateStats();
+      }
+    });
+
+    const skillsObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        animateSkillBars();
+      }
+    });
+
+    bioObserver.observe(bioSection);
+    skillsObserver.observe(skillsSection);
+  </script>
 </body>
 </html>

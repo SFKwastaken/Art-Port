@@ -5,56 +5,97 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Best Pieces</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <nav>
+  <button class="menu-toggle" id="menuToggle">
+    <i class="fas fa-bars"></i>
+  </button>
+  <nav id="mainNav">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
-    <a href="best-pieces.html">Best Pieces</a>
+    <a href="best-pieces.html" class="active">Best Pieces</a>
     <a href="artworks.html">Artworks</a>
     <a href="art-prints.html">Art Prints</a>
     <a href="contact.html">Contact</a>
     <a href="more.html">More</a>
   </nav>
 
-  <div class="best-pieces-container">
-    <div class="art-item">
-      <div class="sketch">
-        <img src="img/sketch1.png" alt="Sketch 1"> <!-- Sketch image -->
-      </div>
-      <div class="finished-piece">
-        <img src="img/finished1.png" alt="Finished Piece 1"> <!-- Finished image -->
-      </div>
-      <div class="art-name">Art Piece 1</div>
+  <main>
+    <div class="best-pieces-title">
+        <h1>Best Pieces</h1>
     </div>
-    <div class="art-item">
-      <div class="sketch">
-        <img src="img/sketch2.png" alt="Sketch 2"> <!-- Sketch image -->
-      </div>
-      <div class="finished-piece">
-        <img src="img/finished2.png" alt="Finished Piece 2"> <!-- Finished image -->
-      </div>
-      <div class="art-name">Art Piece 2</div>
-    </div>
-    <div class="art-item">
+    <p class="instruction-text">✨ Hover over or tap any artwork to reveal its finished piece ✨</p>
+    <div class="best-pieces-container">
+      <div class="art-item">
         <div class="sketch">
-          <img src="img/sketch3.png" alt="Sketch 3"> <!-- Sketch image -->
+          <img src="img/sketch1.png" alt="Sketch 1"> <!-- Sketch image -->
         </div>
         <div class="finished-piece">
-          <img src="img/finished3.png" alt="Finished Piece 3"> <!-- Finished image -->
+          <img src="img/finished1.png" alt="Finished Piece 1"> <!-- Finished image -->
         </div>
-        <div class="art-name">Art Piece 1</div>
+        <div class="art-name">Room Sunset</div>
       </div>
       <div class="art-item">
         <div class="sketch">
-          <img src="img/sketch4.png" alt="Sketch 4"> <!-- Sketch image -->
+          <img src="img/sketch2.png" alt="Sketch 2"> <!-- Sketch image -->
         </div>
         <div class="finished-piece">
-          <img src="img/finished4.png" alt="Finished Piece 4"> <!-- Finished image -->
+          <img src="img/finished2.png" alt="Finished Piece 2"> <!-- Finished image -->
         </div>
-        <div class="art-name">Art Piece 1</div>
+        <div class="art-name">White Tiger</div>
       </div>
-    <!-- Add more art items as needed -->
-  </div>
+      <div class="art-item">
+          <div class="sketch">
+            <img src="img/sketch3.png" alt="Sketch 3"> <!-- Sketch image -->
+          </div>
+          <div class="finished-piece">
+            <img src="img/finished3.png" alt="Finished Piece 3"> <!-- Finished image -->
+          </div>
+          <div class="art-name">Royal</div>
+        </div>
+        <div class="art-item">
+          <div class="sketch">
+            <img src="img/sketch4.png" alt="Sketch 4"> <!-- Sketch image -->
+          </div>
+          <div class="finished-piece">
+            <img src="img/finished4.png" alt="Finished Piece 4"> <!-- Finished image -->
+          </div>
+          <div class="art-name">Night Shot</div>
+        </div>
+      <!-- Add more art items as needed -->
+    </div>
+  </main>
+
+  <script>
+    // Mobile Navigation Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+    const menuIcon = menuToggle.querySelector('i');
+
+    menuToggle.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+      menuIcon.classList.toggle('fa-bars');
+      menuIcon.classList.toggle('fa-times');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
+        mainNav.classList.remove('active');
+        menuIcon.classList.add('fa-bars');
+        menuIcon.classList.remove('fa-times');
+      }
+    });
+
+    // Close menu when clicking a link
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('active');
+        menuIcon.classList.add('fa-bars');
+        menuIcon.classList.remove('fa-times');
+      });
+    });
+  </script>
 </body>
 </html>

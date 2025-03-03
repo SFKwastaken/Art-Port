@@ -5,19 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Artworks</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <nav>
+  <button class="menu-toggle" id="menuToggle">
+    <i class="fas fa-bars"></i>
+  </button>
+  <nav id="mainNav">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="best-pieces.html">Best Pieces</a>
-    <a href="artworks.html">Artworks</a>
+    <a href="artworks.html" class="active">Artworks</a>
     <a href="art-prints.html">Art Prints</a>
     <a href="contact.html">Contact</a>
     <a href="more.html">More</a>
   </nav>
 
   <main class="main-content">
+    <div class="artworks-title">
+      <h1>Artworks</h1>
+    </div>
     <div class="artworks-container">
       <div class="artwork">
         <img src="img/artwork/1.png" alt="Artwork 1" class="artwork-img">
@@ -59,11 +66,42 @@
   </main>
 
   <!-- Modal for Maximized Image -->
-  <div id="image-modal" class="modal">
+  <div id="myModal" class="modal">
     <span class="close">&times;</span>
-    <img class="modal-content" id="modal-img">
+    <img class="modal-content" id="modalImg">
   </div>
 
   <script src="script.js"></script>
+  <script src="scripts/imageGlow.js"></script>
+  <script>
+    // Mobile Navigation Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+    const menuIcon = menuToggle.querySelector('i');
+
+    menuToggle.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+      menuIcon.classList.toggle('fa-bars');
+      menuIcon.classList.toggle('fa-times');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
+        mainNav.classList.remove('active');
+        menuIcon.classList.add('fa-bars');
+        menuIcon.classList.remove('fa-times');
+      }
+    });
+
+    // Close menu when clicking a link
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('active');
+        menuIcon.classList.add('fa-bars');
+        menuIcon.classList.remove('fa-times');
+      });
+    });
+  </script>
 </body>
 </html>

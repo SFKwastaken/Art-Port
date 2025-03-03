@@ -5,10 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Digital Artist Portfolio</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a>
+  <button class="menu-toggle" id="menuToggle">
+    <i class="fas fa-bars"></i>
+  </button>
+  <nav id="mainNav">
+    <a href="index.html" class="active">Home</a>
     <a href="about.html">About</a>
     <a href="best-pieces.html">Best Pieces</a>
     <a href="artworks.html">Artworks</a>
@@ -17,13 +21,23 @@
     <a href="more.html">More</a>
   </nav>
 
+  <!-- Initial Animation Overlay -->
+  <div class="intro-animation">
+    <div class="intro-text">
+      <span class="intro-line">Hi</span>
+      <span class="intro-line">I'm Stephen</span>
+      <span class="intro-line">AKA sfkandartz</span>
+    </div>
+  </div>
+
   <div class="home-container">
     <div class="art-piece">
       <img id="royal" src="img/royal.png" alt="Featured Art">
     </div>
     <div class="home-text">
-      <h1>I'm a Digital Artist</h1>
-      <a href="about.html" class="know-more-button">Know more about me!</a>
+      <h1>Welcome to My Art Portfolio</h1>
+      <p>Explore my journey through digital art and illustration.</p>
+      <a href="about.html" class="know-more-button">Know More</a>
       <div class="social-icons">
         <a href="https://www.instagram.com/sfkandartz/"><img src="icons/instagram.png" alt="Instagram"></a>
         <a href="https://x.com/imsfk123"><img src="icons/twitter.png" alt="Twitter"></a>
@@ -33,7 +47,67 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // Mobile Navigation Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+    const menuIcon = menuToggle.querySelector('i');
+
+    menuToggle.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+      menuIcon.classList.toggle('fa-bars');
+      menuIcon.classList.toggle('fa-times');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
+        mainNav.classList.remove('active');
+        menuIcon.classList.add('fa-bars');
+        menuIcon.classList.remove('fa-times');
+      }
+    });
+
+    // Close menu when clicking a link
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('active');
+        menuIcon.classList.add('fa-bars');
+        menuIcon.classList.remove('fa-times');
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const introAnimation = document.querySelector('.intro-animation');
+      const introLines = document.querySelectorAll('.intro-line');
+      const homeContainer = document.querySelector('.home-container');
+      
+      // Initially hide the main content
+      homeContainer.style.opacity = '0';
+      
+      // Function to animate each line sequentially
+      const animateLines = async () => {
+        for (let i = 0; i < introLines.length; i++) {
+          introLines[i].classList.add('fade-in');
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          introLines[i].classList.add('fade-out');
+          await new Promise(resolve => setTimeout(resolve, 500));
+        }
+        
+        // After all lines are shown, fade out the intro animation
+        introAnimation.classList.add('fade-out');
+        
+        // Show the main content
+        setTimeout(() => {
+          introAnimation.style.display = 'none';
+          homeContainer.classList.add('fade-in');
+        }, 1000);
+      };
+      
+      // Start the animation
+      animateLines();
+    });
+  </script>
 
 </body>
 </html>

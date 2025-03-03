@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Memory Match Game - Digital Artist Portfolio</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     .main-content {
       max-width: 1200px;
-      margin: 2rem auto;
+      margin: 2rem 100px;
       padding: 0 1rem;
     }
 
@@ -27,6 +28,92 @@
     @media (max-width: 768px) {
       .memory-game {
         grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+        margin: 1rem 0;
+        padding: 0 0.5rem;
+      }
+
+      .card {
+        aspect-ratio: 1;
+        max-width: 100%;
+      }
+
+      .card-front img {
+        object-fit: contain;
+        padding: 0.2rem;
+      }
+
+      .card-back {
+        font-size: 1.5rem;
+      }
+
+      .game-stats {
+        flex-direction: column;
+        gap: 0.5rem;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .restart-button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+      }
+
+      #congrats-message {
+        width: 90%;
+        padding: 1.5rem;
+      }
+
+      #congrats-message h2 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+      }
+
+      .main-content {
+        margin: 1rem auto;
+        padding: 0 0.5rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+    }
+
+    /* Even smaller screens */
+    @media (max-width: 480px) {
+      .memory-game {
+        gap: 0.3rem;
+        padding: 0 0.3rem;
+      }
+
+      .card-back {
+        font-size: 1.2rem;
+      }
+
+      .game-stats {
+        font-size: 0.9rem;
+      }
+
+      .restart-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+      }
+
+      #congrats-message {
+        width: 95%;
+        padding: 1rem;
+      }
+
+      #congrats-message h2 {
+        font-size: 1.1rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        text-align: center;
       }
     }
 
@@ -116,7 +203,10 @@
   </style>
 </head>
 <body>
-  <nav>
+  <button class="menu-toggle" id="menuToggle">
+    <i class="fas fa-bars"></i>
+  </button>
+  <nav id="mainNav">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="best-pieces.html">Best Pieces</a>
@@ -143,8 +233,48 @@
   </main>
 
   <script>
-    // This will be replaced with your actual art images
-    const artImages = Array.from({length: 10}, (_, i) => `img/placeholder${i + 1}.jpg`);
+    // Mobile Navigation Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+    const menuIcon = menuToggle.querySelector('i');
+
+    menuToggle.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+      menuIcon.classList.toggle('fa-bars');
+      menuIcon.classList.toggle('fa-times');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
+        mainNav.classList.remove('active');
+        menuIcon.classList.add('fa-bars');
+        menuIcon.classList.remove('fa-times');
+      }
+    });
+
+    // Close menu when clicking a link
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('active');
+        menuIcon.classList.add('fa-bars');
+        menuIcon.classList.remove('fa-times');
+      });
+    });
+
+    // Array of actual art images from the memory directory
+    const artImages = [
+      'img/memory/1.png',
+      'img/memory/2.png',
+      'img/memory/3.png',
+      'img/memory/4.png',
+      'img/memory/5.png',
+      'img/memory/6.png',
+      'img/memory/7.png',
+      'img/memory/8.png',
+      'img/memory/9.png',
+      'img/memory/10.png'
+    ];
     
     let cards = [];
     let flippedCards = [];

@@ -5,74 +5,212 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Art Prints</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <nav>
+  <button class="menu-toggle" id="menuToggle">
+    <i class="fas fa-bars"></i>
+  </button>
+  <nav id="mainNav">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="best-pieces.html">Best Pieces</a>
     <a href="artworks.html">Artworks</a>
-    <a href="art-prints.html">Art Prints</a>
+    <a href="art-prints.html" class="active">Art Prints</a>
     <a href="contact.html">Contact</a>
     <a href="more.html">More</a>
   </nav>
 
   <div class="art-prints-container">
+    <div class="construction-notice">
+      <i class="fas fa-hard-hat"></i>
+      <div class="notice-content">
+        <h3>🚧 Page Under Construction 🚧</h3>
+        <p>Welcome to our Art Prints customizer! This page is still in development, but we encourage you to:</p>
+        <ul>
+          <li>✨ Explore different artworks and products</li>
+          <li>🎨 Experiment with customization options</li>
+          <li>🖼️ Preview my artworks as prints</li>
+        </ul>
+        <p class="notice-highlight">Note: The checkout and payment system are not yet functional. This is just a preview of what's coming soon!</p>
+      </div>
+    </div>
+    
     <h1>Custom Art Prints</h1>
+    
+    <div class="print-customizer">
+      <!-- Step 1: Select Artwork -->
+      <div class="customizer-section">
+        <h2><span class="step-number">1</span> Choose Your Artwork</h2>
+        <div class="artwork-grid" id="artworkGrid">
+          <!-- Artwork thumbnails will be dynamically added here -->
+        </div>
+      </div>
 
-    <!-- Step 1: Select Artwork -->
-    <div class="step">
-      <h2>Step 1: Choose Your Artwork</h2>
-      <div class="artwork-selection">
-        <!-- Dynamically populated artwork thumbnails -->
+      <!-- Step 2: Select Product -->
+      <div class="customizer-section">
+        <h2><span class="step-number">2</span> Choose Your Product</h2>
+        <div class="product-options">
+          <div class="product-card" data-product="poster">
+            <i class="fas fa-image"></i>
+            <span>Poster</span>
+            <p class="price">From $19.99</p>
+          </div>
+          <div class="product-card" data-product="canvas">
+            <i class="fas fa-paint-roller"></i>
+            <span>Canvas</span>
+            <p class="price">From $39.99</p>
+          </div>
+          <div class="product-card" data-product="framed">
+            <i class="fas fa-frame"></i>
+            <span>Framed Print</span>
+            <p class="price">From $49.99</p>
+          </div>
+          <div class="product-card" data-product="metal">
+            <i class="fas fa-square"></i>
+            <span>Metal Print</span>
+            <p class="price">From $59.99</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Customize Options -->
+      <div class="customizer-section">
+        <h2><span class="step-number">3</span> Customize Your Print</h2>
+        <div class="customization-options">
+          <div class="option-group">
+            <label for="size">Size:</label>
+            <select id="size" class="custom-select">
+              <option value="custom">Custom Size</option>
+              <option value="small">Small (8" x 10")</option>
+              <option value="medium">Medium (16" x 20")</option>
+              <option value="large">Large (24" x 36")</option>
+              <option value="xlarge">Extra Large (36" x 48")</option>
+            </select>
+          </div>
+
+          <div class="option-group custom-dimensions" id="customDimensions">
+            <label>Custom Dimensions:</label>
+            <div class="dimension-inputs">
+              <div class="dimension-input">
+                <input type="number" id="widthInput" min="5" max="60" step="0.5" placeholder="Width">
+                <span>inches</span>
+              </div>
+              <span class="dimension-separator">×</span>
+              <div class="dimension-input">
+                <input type="number" id="heightInput" min="5" max="60" step="0.5" placeholder="Height">
+                <span>inches</span>
+              </div>
+            </div>
+            <div class="aspect-ratio-controls">
+              <label class="checkbox-label">
+                <input type="checkbox" id="lockAspectRatio" checked>
+                Lock aspect ratio
+              </label>
+              <button type="button" id="fitToArtwork" class="secondary-button">
+                <i class="fas fa-expand-arrows-alt"></i>
+                Fit to artwork
+              </button>
+            </div>
+          </div>
+
+          <div class="option-group">
+            <label for="material">Material:</label>
+            <select id="material" class="custom-select">
+              <option value="matte">Matte Paper</option>
+              <option value="glossy">Glossy Paper</option>
+              <option value="canvas">Canvas</option>
+              <option value="metal">Metal</option>
+            </select>
+          </div>
+
+          <div class="option-group">
+            <label for="frame">Frame Style:</label>
+            <select id="frame" class="custom-select">
+              <option value="none">No Frame</option>
+              <option value="black">Black Frame</option>
+              <option value="white">White Frame</option>
+              <option value="wood">Natural Wood</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Step 2: Select Product -->
-    <div class="step">
-      <h2>Step 2: Choose Your Product</h2>
-      <div class="product-selection">
-        <button data-product="t-shirt">T-Shirt</button>
-        <button data-product="mug">Mug</button>
-        <button data-product="poster">Poster</button>
-        <button data-product="canvas">Canvas</button>
+    <!-- Preview and Price Section -->
+    <div class="preview-section">
+      <div class="preview-container">
+        <h2>Preview</h2>
+        <div class="preview-frame" id="previewFrame">
+          <img id="previewImage" src="" alt="Preview">
+          <div class="preview-overlay">
+            <div class="preview-size-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="price-summary">
+        <h3>Order Summary</h3>
+        <div class="price-details">
+          <div class="price-row">
+            <span>Base Price:</span>
+            <span id="basePrice">$0.00</span>
+          </div>
+          <div class="price-row">
+            <span>Size:</span>
+            <span id="sizePrice">$0.00</span>
+          </div>
+          <div class="price-row">
+            <span>Frame:</span>
+            <span id="framePrice">$0.00</span>
+          </div>
+          <div class="price-row total">
+            <span>Total:</span>
+            <span id="totalPrice">$0.00</span>
+          </div>
+        </div>
+        <div class="checkout-notice">
+          <i class="fas fa-info-circle"></i>
+          <span>Demo Mode: Checkout functionality coming soon!</span>
+        </div>
+        <button id="checkoutButton" class="checkout-button" disabled>
+          <i class="fas fa-shopping-cart"></i>
+          Preview Only - Checkout Coming Soon
+        </button>
       </div>
     </div>
-
-    <!-- Step 3: Customize Printing Options -->
-    <div class="step">
-      <h2>Step 3: Customize Your Print</h2>
-      <div class="customization-options">
-        <label for="size">Size:</label>
-        <select id="size">
-          <option value="small">Small</option>
-          <option value="medium">Medium</option>
-          <option value="large">Large</option>
-        </select>
-
-        <label for="orientation">Orientation:</label>
-        <select id="orientation">
-          <option value="portrait">Portrait</option>
-          <option value="landscape">Landscape</option>
-        </select>
-
-        <!-- Add more customization options as needed -->
-      </div>
-    </div>
-
-    <!-- Step 4: 3D Preview -->
-    <div class="step">
-      <h2>Step 4: Preview Your Design</h2>
-      <div class="preview-viewport">
-        <!-- 3D viewport for real-time preview -->
-        <iframe id="3d-viewport" src="" frameborder="0"></iframe>
-      </div>
-    </div>
-
-    <!-- Proceed to Checkout -->
-    <button id="checkout-button">Proceed to Checkout</button>
   </div>
 
-  <script src="scripts.js"></script>
+  <script src="scripts/art-prints.js"></script>
+  <script>
+    // Mobile Navigation Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+    const menuIcon = menuToggle.querySelector('i');
+
+    menuToggle.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+      menuIcon.classList.toggle('fa-bars');
+      menuIcon.classList.toggle('fa-times');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
+        mainNav.classList.remove('active');
+        menuIcon.classList.add('fa-bars');
+        menuIcon.classList.remove('fa-times');
+      }
+    });
+
+    // Close menu when clicking a link
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('active');
+        menuIcon.classList.add('fa-bars');
+        menuIcon.classList.remove('fa-times');
+      });
+    });
+  </script>
 </body>
 </html>
