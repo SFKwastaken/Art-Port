@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Match Game - Digital Artist Portfolio</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .main-content {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .game-controls {
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .memory-game {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .memory-game {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .card {
+      aspect-ratio: 1;
+      background-color: #2a2a2a;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      position: relative;
+    }
+
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-front,
+    .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-front {
+      background-color: #2a2a2a;
+      transform: rotateY(180deg);
+      overflow: hidden;
+    }
+
+    .card-front img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-back {
+      background-color: #444;
+      color: #fff;
+      font-size: 2rem;
+    }
+
+    .game-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .restart-button {
+      padding: 0.8rem 1.5rem;
+      background-color: #444;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    .restart-button:hover {
+      background-color: #555;
+    }
+
+    #congrats-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="best-pieces.html">Best Pieces</a>
+    <a href="artworks.html">Artworks</a>
+    <a href="art-prints.html">Art Prints</a>
+    <a href="contact.html">Contact</a>
+    <a href="more.html" class="active">More</a>
+  </nav>
+
+  <main class="main-content">
+    <h1>Memory Match Game</h1>
+    <div class="game-controls">
+      <div class="game-stats">
+        <p>Moves: <span id="moves">0</span></p>
+        <p>Matches Found: <span id="matches">0</span></p>
+      </div>
+      <button class="restart-button" onclick="restartGame()">Restart Game</button>
+    </div>
+    <div class="memory-game" id="gameGrid"></div>
+    <div id="congrats-message" class="hidden">
+      <h2>Congratulations! You've matched all the pairs!</h2>
+      <button class="restart-button" onclick="restartGame()">Play Again</button>
+    </div>
+  </main>
+
+  <script>
+    // This will be replaced with your actual art images
+    const artImages = Array.from({length: 10}, (_, i) => `img/placeholder${i + 1}.jpg`);
+    
+    let cards = [];
+    let flippedCards = [];
+    let matchedPairs = 0;
+    let moves = 0;
+    let canFlip = true;
+
+    function createGameBoard() {
+      const gameGrid = document.getElementById('gameGrid');
+      // Create pairs of cards
+      cards = [...artImages, ...artImages]
+        .sort(() => Math.random() - 0.5)
+        .map((img, index) => ({
+          id: index,
+          img: img,
+          isFlipped: false,
+          isMatched: false
+        }));
+
+      gameGrid.innerHTML = cards.map(card => `
+        <div class="card" data-id="${card.id}">
+          <div class="card-front">
+            <img src="${card.img}" alt="Art piece">
+          </div>
+          <div class="card-back">?</div>
+        </div>
+      `).join('');
+
+      // Add click event listeners
+      document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', () => flipCard(card));
+      });
+    }
+
+    function flipCard(cardElement) {
+      const cardId = parseInt(cardElement.dataset.id);
+      const card = cards[cardId];
+      
+      if (!canFlip || card.isFlipped || card.isMatched) return;
+      
+      cardElement.classList.add('flipped');
+      card.isFlipped = true;
+      flippedCards.push({element: cardElement, card: card});
+
+      if (flippedCards.length === 2) {
+        canFlip = false;
+        moves++;
+        document.getElementById('moves').textContent = moves;
+        
+        const [card1, card2] = flippedCards;
+        if (card1.card.img === card2.card.img) {
+          // Match found
+          card1.card.isMatched = true;
+          card2.card.isMatched = true;
+          matchedPairs++;
+          document.getElementById('matches').textContent = matchedPairs;
+          flippedCards = [];
+          canFlip = true;
+
+          if (matchedPairs === artImages.length) {
+            document.getElementById('congrats-message').classList.remove('hidden');
+          }
+        } else {
+          // No match
+          setTimeout(() => {
+            card1.element.classList.remove('flipped');
+            card2.element.classList.remove('flipped');
+            card1.card.isFlipped = false;
+            card2.card.isFlipped = false;
+            flippedCards = [];
+            canFlip = true;
+          }, 1000);
+        }
+      }
+    }
+
+    function restartGame() {
+      document.getElementById('congrats-message').classList.add('hidden');
+      flippedCards = [];
+      matchedPairs = 0;
+      moves = 0;
+      canFlip = true;
+      document.getElementById('moves').textContent = '0';
+      document.getElementById('matches').textContent = '0';
+      document.querySelectorAll('.card').forEach(card => {
+        card.classList.remove('flipped');
+      });
+      setTimeout(createGameBoard, 300);
+    }
+
+    // Initialize the game
+    createGameBoard();
+  </script>
+</body>
+</html>

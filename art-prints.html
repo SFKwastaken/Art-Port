@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art Prints</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="best-pieces.html">Best Pieces</a>
+    <a href="artworks.html">Artworks</a>
+    <a href="art-prints.html">Art Prints</a>
+    <a href="contact.html">Contact</a>
+    <a href="more.html">More</a>
+  </nav>
+
+  <div class="art-prints-container">
+    <h1>Custom Art Prints</h1>
+
+    <!-- Step 1: Select Artwork -->
+    <div class="step">
+      <h2>Step 1: Choose Your Artwork</h2>
+      <div class="artwork-selection">
+        <!-- Dynamically populated artwork thumbnails -->
+      </div>
+    </div>
+
+    <!-- Step 2: Select Product -->
+    <div class="step">
+      <h2>Step 2: Choose Your Product</h2>
+      <div class="product-selection">
+        <button data-product="t-shirt">T-Shirt</button>
+        <button data-product="mug">Mug</button>
+        <button data-product="poster">Poster</button>
+        <button data-product="canvas">Canvas</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Customize Printing Options -->
+    <div class="step">
+      <h2>Step 3: Customize Your Print</h2>
+      <div class="customization-options">
+        <label for="size">Size:</label>
+        <select id="size">
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
+        </select>
+
+        <label for="orientation">Orientation:</label>
+        <select id="orientation">
+          <option value="portrait">Portrait</option>
+          <option value="landscape">Landscape</option>
+        </select>
+
+        <!-- Add more customization options as needed -->
+      </div>
+    </div>
+
+    <!-- Step 4: 3D Preview -->
+    <div class="step">
+      <h2>Step 4: Preview Your Design</h2>
+      <div class="preview-viewport">
+        <!-- 3D viewport for real-time preview -->
+        <iframe id="3d-viewport" src="" frameborder="0"></iframe>
+      </div>
+    </div>
+
+    <!-- Proceed to Checkout -->
+    <button id="checkout-button">Proceed to Checkout</button>
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
